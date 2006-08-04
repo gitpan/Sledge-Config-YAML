@@ -4,9 +4,7 @@ use strict;
 use warnings;
 use base qw(Sledge::Config);
 
-our $VERSION = 0.01;
-
-use YAML;
+our $VERSION = 0.02;
 
 sub new {
     my $class       = shift;
@@ -17,7 +15,8 @@ sub new {
     if ($config_name =~ /^([^_]+)_/) {
         $config_base = $1;
     }
-    my $conf   = YAML::LoadFile($config_file);
+
+    my $conf = $class->_load($config_file);
 
     my %config;
     if ($config_base) {
@@ -39,6 +38,18 @@ sub new {
     bless \%config, $class;
 }
 
+sub _load {
+    my ($self, $config_file) = @_;
+
+    eval { require YAML::Syck; };
+    if( $@ ) {
+        require YAML;
+        return YAML::LoadFile( $config_file );
+    } else {
+        return YAML::Syck::LoadFile( $config_file );
+    }
+}
+
 1;
 __END__
 
@@ -49,17 +60,12 @@ Sledge::Config::YAML - The configuration file of Sledge can be written by using 
 =head1 SYNOPSIS
 
    package Your::Config;
-   use basei qw(Sledge::Config::YAML Class::Data::Inheritable);
-
-   __PACKAGE__->mk_classdata('file_map');
+   use basei qw(Sledge::Config::YAML);
 
    sub new {
        my $class = shift;
 
-       my $config_name = $ENV{SLEDGE_CONFIG_NAME};
-       $config_name =~ s/^_//;
-
-       $class->SUPER::new($config_name, $class->file_map->{$config_name});
+       $class->SUPER::new($ENV{SLEDGE_CONFIG_NAME}, $ENV{SLEDGE_CONFIG_FILE});
    }
 
    ----

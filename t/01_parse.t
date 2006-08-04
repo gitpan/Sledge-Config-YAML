@@ -1,9 +1,8 @@
 use strict;
-use Test::More tests => 4;
+use Test::More tests => 3;
 
 BEGIN { 
     use_ok 'Sledge::Config::YAML';
-    use_ok 'YAML';
 }
 
 my $config_dev = Sledge::Config::YAML->new('develop_user', 't/example.yaml');

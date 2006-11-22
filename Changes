@@ -1,7 +1,4 @@
 Revision history for Perl extension Sledge::Config::YAML
 
-0.02  Fri Aug 04 17:18:55 2006
-        - use YAML::Syck
-
 0.01  Tue Feb 28 17:26:50 2006
         - original version

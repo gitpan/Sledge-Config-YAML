@@ -4,7 +4,9 @@ use strict;
 use warnings;
 use base qw(Sledge::Config);
 
-our $VERSION = 0.02;
+use Data::Visitor::Callback;
+
+our $VERSION = 0.03;
 
 sub new {
     my $class       = shift;
@@ -35,6 +37,16 @@ sub new {
     # case sensitive hash
     %config = map { lc($_) => $config{$_} } keys %config
         unless $class->case_sensitive;
+
+    # replace string __ENV:HOME__
+    my $v = Data::Visitor::Callback->new(
+        plain_value => sub {
+            return unless defined $_;
+            s{__ENV:HOME__}{ $ENV{HOME} }e;
+        }
+    );
+    $v->visit( \%config );
+
     bless \%config, $class;
 }
 
@@ -89,9 +101,9 @@ Sledge::Config::YAML - The configuration file of Sledge can be written by using 
        - 127.0.0.1:XXXXX
      cache_servers  :
        - 127.0.0.1:XXXXX
+     tmpl_path: __ENV:HOME__/project/template/proj
 
    develop_kan:
-     tmpl_path: /path/to/template/proj
      host: proj.dev.example.com
      validator_message_file: /path/to/dev_conf/message.yaml
      info_addr: kan@example.com
@@ -100,6 +112,12 @@ Sledge::Config::YAML - The configuration file of Sledge can be written by using 
 =head1 DESCRIPTION
 
 The configuration file of Sledge can be written by using YAML.
+
+=head1 METHODS
+
+=head2 new
+
+You can use syntax `__ENV:HOME__`. It's replaced with your home directory.
 
 =head1 AUTHOR
 
@@ -117,3 +135,4 @@ it under the same terms as Perl itself.
 L<Sledge::Config>
 
 =cut
+

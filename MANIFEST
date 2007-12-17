@@ -2,6 +2,7 @@ Changes
 lib/Sledge/Config/YAML.pm
 Makefile.PL
 MANIFEST			This list of files
+META.yml			Module meta-data (added by MakeMaker)
 t/00_compile.t
-t/01_dev.t
-META.yml                                 Module meta-data (added by MakeMaker)
+t/01_simple.t
+t/example.yaml

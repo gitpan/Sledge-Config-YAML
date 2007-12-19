@@ -13,4 +13,4 @@ no_index:
 requires: 
   Data::Visitor::Callback: 0
   YAML: 0.39
-version: 0.05
+version: 0.06

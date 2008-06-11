@@ -1,16 +1,21 @@
-abstract: The configuration file of Sledge can be written by using YAML.
-author: KAN Fushihara <kan at mobilefactory.jp>
-build_requires: 
+---
+abstract: 'The configuration file of Sledge can be written by using YAML.'
+author:
+  - 'KAN Fushihara <kan at mobilefactory.jp>'
+build_requires:
   Test::More: 0.32
 distribution_type: module
-generated_by: Module::Install version 0.64
+generated_by: 'Module::Install version 0.72'
 license: unknown
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.3.html
+  version: 1.3
 name: Sledge-Config-YAML
-no_index: 
-  directory: 
+no_index:
+  directory:
     - inc
     - t
-requires: 
+requires:
   Data::Visitor::Callback: 0
   YAML: 0.39
-version: 0.06
+version: 0.07

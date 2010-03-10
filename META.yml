@@ -22,4 +22,4 @@ requires:
   File::Slurp: 0
   Filter::Util::Call: 0
   YAML::Syck: 1.07
-version: 0.08
+version: 0.09
